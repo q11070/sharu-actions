@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      {process.env.REACT_APP_VERSION}
+      <h1>{process.env.REACT_APP_VERSION}</h1>
     </div>
   );
 }
