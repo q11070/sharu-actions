@@ -34,3 +34,5 @@ jobs:
           token: ${{ secrets.PAT }}
     - name: Display current branch
       run: git branch
+    - name: Display build number
+      run: echo ${{github.run_number}}
