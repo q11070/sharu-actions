@@ -45,7 +45,7 @@ jobs:
     - name: Build App
       run: yarn build
       env:
-        REACT_APP_VERSION: ${{github.inputs.version}}.${{github.run_number}}
+        REACT_APP_VERSION: ${{github.event.inputs.version}}.${{github.run_number}}
     - name: Extract branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
