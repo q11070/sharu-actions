@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      name:
+      version:
         # Friendly description to be shown in the UI instead of 'name'
         description: 'Version'
         # Default value if no value is explicitly provided
@@ -40,7 +40,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
        node-version: '18'
-    - run: node --version
-    - run: npm --version
+      run: node --version
     - name: Install dependencies
       run: yarn install
+    - name: Build App
+      run: yarn build
+      env:
+        REACT_APP_VERSION: ${{github.inputs.version}}
