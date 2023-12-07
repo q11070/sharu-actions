@@ -45,4 +45,15 @@ jobs:
     - name: Build App
       run: yarn build
       env:
-        REACT_APP_VERSION: ${{github.inputs.version}}
+        REACT_APP_VERSION: ${{github.inputs.version}}.${{github.run_number}}
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: v${{github.inputs.version}}.${{github.run_number}}
+        commit: ${{ steps.extract_branch.outputs.branch }}
+        prerelease: true
+        token: ${{ secrets.PAT }}
