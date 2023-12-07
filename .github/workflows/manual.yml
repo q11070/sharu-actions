@@ -35,12 +35,11 @@ jobs:
     - name: Display current branch
       run: git branch
     - name: Display build number
-      run: echo ${{github.run_number}}
+      run: echo '${{github.run_number}}'
     - name: Set Node Version
       uses: actions/setup-node@v3
       with:
-       node-version: '18'
-      run: node --version
+        node-version: '18'
     - name: Install dependencies
       run: yarn install
     - name: Build App
