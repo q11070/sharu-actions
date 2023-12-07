@@ -30,3 +30,10 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ inputs.name }}"
+    - name: Checkout selected Branch
+      uses: actions/checkout@v3
+      with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+    - name: Display current branch
+      run: git branch
