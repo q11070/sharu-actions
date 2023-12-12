@@ -33,10 +33,14 @@ jobs:
     - name: Display selected tag
       run: echo '${{github.ref_name}}'
     - name: fetch assets
-      uses: dsaltares/fetch-gh-release-asset@master
+      uses: robinraju/release-downloader@v1.8
       with:
-        repo: 'q11070/sharu-actions'
-        version: 'tags/${{github.ref_name}}'
-        file: 'maximbio_build.tar.gz'
-        target: 'subdir/maximbio_build.tar.gz'
+        repository: 'q11070/sharu-actions'
+        tag: ${{github.ref_name}}
+        tarBall: true
+        out-file-path: 'deliverables'
+        fileName: 'maximbio_build.tar.gz'
+        extract: true
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: list the contents of deliverables
+      run: ls deliverables/
