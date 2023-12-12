@@ -30,31 +30,5 @@ jobs:
       with:
           fetch-depth: 0
           token: ${{ secrets.PAT }}
-    - name: Display current branch
-      run: git branch
-    - name: Display build number
-      run: echo '${{github.run_number}}'
-    - name: Set Node Version
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-    - name: Install dependencies
-      run: yarn install
-    - name: Build App
-      run: yarn build
-      env:
-        REACT_APP_VERSION: v${{github.event.inputs.version}}.${{github.run_number}}
-    - name: Extract branch name
-      shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: extract_branch
-    - name: Archive the build folder
-      run: tar czvf maximbio_${{github.event.inputs.version}}.${{github.run_number}}.tar.gz ./build/.
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      with:
-        tag: v${{github.event.inputs.version}}.${{github.run_number}}
-        commit: ${{ steps.extract_branch.outputs.branch }}
-        artifacts: maximbio_${{github.event.inputs.version}}.${{github.run_number}}.tar.gz 
-        prerelease: true
-        token: ${{ secrets.PAT }}
+    - name: Display selected tag
+      run: echo '${{github.ref}}'
