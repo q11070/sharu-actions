@@ -11,6 +11,7 @@ on:
       environment:
         description: 'Select the target environment to deploy'
         default: 'development'
+        type: choice
         options:
           - development
           - testing
