@@ -31,4 +31,4 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.PAT }}
     - name: Display selected tag
-      run: echo '${{github.ref}}'
+      run: echo '${{github.ref_name}}'
