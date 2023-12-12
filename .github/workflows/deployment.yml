@@ -43,4 +43,4 @@ jobs:
         extract: true
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: list the contents of deliverables
-      run: ls deliverables/
+      run: ls deliverables/build/
