@@ -51,7 +51,7 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
     - name: Archive the build folder
-      run: tar czvf maximbio_${{github.event.inputs.version}}.${{github.run_number}}.tar.gz ./build/.
+      run: tar czvf maximbio_build.tar.gz ./build/.
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:

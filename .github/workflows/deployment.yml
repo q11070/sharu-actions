@@ -32,3 +32,11 @@ jobs:
           token: ${{ secrets.PAT }}
     - name: Display selected tag
       run: echo '${{github.ref_name}}'
+    - name: fetch assets
+      uses: dsaltares/fetch-gh-release-asset@master
+      with:
+        repo: 'dsaltares/godot-wild-jam-18'
+        version: 'tags/${{github.ref_name}}'
+        file: 'maximbio_build.tar.gz'
+        target: 'subdir/maximbio_build.tar.gz'
+        token: ${{ secrets.GITHUB_TOKEN }}
