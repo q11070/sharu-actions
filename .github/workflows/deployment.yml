@@ -39,7 +39,7 @@ jobs:
         tag: ${{github.ref_name}}
         tarBall: true
         out-file-path: 'deliverables'
-        fileName: 'maximbio_build.tar.gz'
+        fileName: maximbio_${{github.ref_name}}.tar.gz
         extract: true
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: list the contents of deliverables
