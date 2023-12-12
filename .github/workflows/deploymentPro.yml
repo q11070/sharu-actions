@@ -1,0 +1,55 @@
+# This is a basic workflow that is manually triggered
+
+name: Deployment Pro
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      version:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Version to deploy'
+        # Default value if no value is explicitly provided
+        default: 'v2.1.1.20'
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string    
+      environment:
+        description: 'Select the target environment to deploy'
+        default: 'development'
+        type: choice
+        options:
+          - development
+          - testing
+          - production
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  deployMaximBio:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Checkout selected Branch
+      uses: actions/checkout@v3
+      with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+    - name: Display selected tag
+      run: echo '${{github.event.inputs.version}}'
+    - name: fetch assets
+      uses: robinraju/release-downloader@v1.8
+      with:
+        repository: 'q11070/sharu-actions'
+        tag: ${{github.event.inputs.version}}
+        tarBall: true
+        out-file-path: 'deliverables'
+        fileName: maximbio_${{github.event.inputs.version}}.tar.gz
+        extract: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: list the contents of deliverables
+      run: ls deliverables/build/
